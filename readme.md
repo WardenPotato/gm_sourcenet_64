@@ -6,15 +6,27 @@ A module for Garry's Mod that provides interfaces to many systems of VALVe's eng
 
 ## Compiling
 
-The only supported compilation platform for this project on Windows is **Visual Studio 2017** on **release** mode. However, it's possible it'll work with *Visual Studio 2015* and *Visual Studio 2019* because of the unified runtime.
+Warning: this fork will only focus on supporting and building x64 linux builds, goto the original repo if your purpose is anything but this.
 
 On Linux, everything should work fine as is, on **release** mode.
 
-For macOS, any **Xcode (using the GCC compiler)** version *MIGHT* work as long as the **Mac OSX 10.7 SDK** is used, on **release** mode.
-
 These restrictions are not random; they exist because of ABI compatibility reasons.
 
-If stuff starts erroring or fails to work, be sure to check the correct line endings (\n and such) are present in the files for each OS.
+If stuff starts erroring or fails to work, be sure to check the correct line endings (`\n` and such) are present in the files for each OS.
+
+### Compiling for linux(instructions partly borrowed from https://github.com/Earu/gm_win_toast)
+1) Get [premake](https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-linux.tar.gz)(Older alpha versions will give some cryptic issue about bitmap, if thats the case make sure to update your version and do [not](https://github.com/danielga/garrysmod_common/issues/82) install this in /usr/bin/ either) add it to your `PATH`
+2) Get [garrysmod_common](https://github.com/danielga/garrysmod_common) (with `git clone https://github.com/danielga/garrysmod_common --recursive --branch=x86-64-support-sourcesdk`) and set an env var called `GARRYSMOD_COMMON` to the path of the local repo
+3) Run `premake5 gmake --gmcommon=$GARRYSMOD_COMMON` in your local copy of **this** repo
+4) Navigate to the makefile directory (`cd /projects/linux/gmake`)
+5) Run `make config=release_x86_64`
+
+### Important information for pterodactyl users!
+
+In order to switch your servers to 64bit on pterodactly two things need to be done.
+
+1) You will need to modify the gmod egg to support switching branches luckily this is already natively supported but the catch is that its [not upstream yet](https://github.com/pterodactyl/panel/pull/3994#issuecomment-1064009658) so you will have to manually update the egg, you can download it [here](https://github.com/parkervcp/eggs/blob/master/stock_eggs/source-engine/egg-garrys-mod.json) when its downloaded simply goto your panel -> Admin -> Nests -> Source Engine -> Garrys Mod. Then under the tab configuration you will find a Egg File option, upload the file you downloaded earlier and then press the red "Update Egg" button.
+2) Goto Panel -> Admins -> Servers -> (whichever server you want to make 64bit) -> Startup. Under the option "Startup Command Modification" change "./srcds_run" to "./srcds_run_x64" and set the option "Beta" to "x86-64" and Tick "Validate Serverfiles" on.
 
 ## Requirements
 
