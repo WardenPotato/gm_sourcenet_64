@@ -1,4 +1,4 @@
-# gm\_sourcenet
+# gm\_sourcenet_64
 
 [![Build Status](https://metamann.visualstudio.com/GitHub%20danielga/_apis/build/status/danielga.gm_sourcenet?branchName=master)](https://metamann.visualstudio.com/GitHub%20danielga/_build/latest?definitionId=8&branchName=master)
 
